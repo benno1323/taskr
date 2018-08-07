@@ -4,5 +4,6 @@ FactoryBot.define do
     description     { Faker::Lorem.paragraph }
     priority        { "Medium" }
     due_date        Time.now + 10.days
+    association     :user
   end
 end

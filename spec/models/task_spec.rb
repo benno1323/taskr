@@ -27,5 +27,8 @@ RSpec.describe Task, type: :model do
     expect(@task).to_not be_valid
   end
 
-  # it "is invalid without a owner"
+  it "is invalid without a owner" do
+    @task.user_id = nil
+    expect(@task).to_not be_valid
+  end
 end
