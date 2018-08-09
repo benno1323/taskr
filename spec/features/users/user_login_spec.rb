@@ -23,10 +23,10 @@ RSpec.feature "Visitor logs in", type: :feature do
 
       fill_in("Email", with: '')
       fill_in("Password", with: user.password)
-      click_button("Log In")
+      click_button("Log in")
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("Invalid Email or password.")
     end
 
     scenario "can´t log in without password" do
@@ -35,22 +35,10 @@ RSpec.feature "Visitor logs in", type: :feature do
 
       fill_in("Email", with: user.email)
       fill_in("Password", with: '')
-      click_button("Log In")
+      click_button("Log in")
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_content("Password can't be blank")
-    end
-
-    scenario "can´t log in if password does not meet minimum number of characters" do
-      visit root_path
-      click_link("Log In")
-
-      fill_in("Email", with: user.email)
-      fill_in("Password", with: a*2)
-      click_button("Log In")
-
-      expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_content("Password has a minimum of 8 characters.")
+      expect(page).to have_content("Invalid Email or password.")
     end
   end
 end
