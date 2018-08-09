@@ -6,9 +6,9 @@ RSpec.feature "Visitor Signs Out", type: :feature do
       user = build(:user)
       login_as(user, scope: :user)
 
-      click_link("Sign Out")
-      expect(page).to eq(root_path)
-      expect(page).to have_content("See you soon")
+      visit tasks_path
+      click_link("Log Out")
+      expect(current_path).to eq(root_path)
     end
   end
 end
