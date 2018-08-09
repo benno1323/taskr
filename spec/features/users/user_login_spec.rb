@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Visitor logs in", type: :feature do
-  let(:user) { build(:user) }
+  let(:user) { create(:user) }
   context "with valid credentials" do
     scenario "visitor can sign in" do
       visit root_path
@@ -11,7 +11,7 @@ RSpec.feature "Visitor logs in", type: :feature do
       fill_in("Password", with: user.password)
       click_button("Log in")
 
-      expect(current_path).to eq(dashboard_path)
+      expect(current_path).to eq(tasks_path)
       expect(page).to have_content("Signed in successfully.")
     end
   end
