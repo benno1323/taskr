@@ -1,67 +1,45 @@
 require 'rails_helper'
 
 RSpec.feature "Tasks", type: :feature do
+  before(:each) do
+    @user = create(:user)
+    @task = build(:task)
+  end
+
   scenario "POST #create" do
-    user = create(:user)
-    task = build(:task)
-
     visit root_path
-    click_link("Log In")
-
-    fill_in("Email", with: user.email)
-    fill_in("Password", with: user.password)
-    click_button("Log in")
-    visit tasks_path
+    log_in(@user)
 
     expect {
-      click_link("New")
-      fill_in("Subject", with: task.subject)
-      fill_in("Description", with: task.description)
-      select("Medium", from: "Priority")
-      click_button("Create")
-    }.to change(user.tasks, :count).by(1)
+      create_task(@task)
+    }.to change(@user.tasks, :count).by(1)
 
     expect(page).to have_content("Task created successfully!")
   end
 
   scenario "GET #index" do
-    user = create(:user)
-    task = build(:task)
     visit root_path
-
-    click_link("Log In")
-    fill_in("Email", with: user.email)
-    fill_in("Password", with: user.password)
-    click_button("Log in")
-
-    click_link("New")
-    fill_in("Subject", with: task.subject)
-    fill_in("Description", with: task.description)
-    select("Medium", from: "Priority")
-    click_button("Create")
-
+    log_in(@user)
+    create_task(@task)
     visit tasks_path
 
     expect(page).to have_content("Subject")
     expect(page).to have_content("Description")
     expect(page).to have_content("Priority")
     expect(page).to have_content("Due Date")
-    expect(page).to have_content(task.subject)
-    expect(page).to have_content(task.description)
-    expect(page).to have_content(task.priority)
+    expect(page).to have_content(@task.subject)
+    expect(page).to have_content(@task.description)
+    expect(page).to have_content(@task.priority)
     expect(page).to have_content("2018-09-07")
   end
 
   scenario "GET #show" do
-    user = create(:user)
-    task = build(:task)
-
     visit root_path
-    log_in(user)
-    create_task(task)
+    log_in(@user)
+    create_task(@task)
 
     within "h1" do
-      expect(page).to have_content(task.subject)
+      expect(page).to have_content(@task.subject)
     end
 
   end
@@ -79,7 +57,7 @@ RSpec.feature "Tasks", type: :feature do
     click_link("New")
     fill_in("Subject", with: task.subject)
     fill_in("Description", with: task.description)
-    select("Medium", from: "Priority")
+    select(task.priority, from: "Priority")
     click_button("Create")
   end
 end
