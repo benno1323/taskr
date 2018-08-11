@@ -1,6 +1,38 @@
-<h1><%= @task.subject %></h1>
-<h2><%= @task.description %></h2>
-<p><%= @task.priority %></p>
-<p><%= @task.due_date %></p>
-
-<%= link_to "All Tasks", tasks_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <h5 class="col-md-3">
+                <%= @task.user.email %>
+            </h5>
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+              Due date: <%= @task.due_date %>
+            </div>
+            <div class="col-md-1">
+              <span class = "badge badge-pill badge-primary">
+                <%= @task.priority %>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-text"><%= @task.subject %></h5>
+          <p class="card-text"><%= @task.description %></p>
+        </div>
+        <div class="card-footer text-muted">
+          <div class="row">
+            <div class="col-md-3">
+              <%= link_to 'Edit', edit_task_path(@task) %> |
+              <%= link_to 'Delete', @task, method: :delete, data: { confirm: 'Are you sure?'} %> |
+              <%= link_to 'Back', tasks_path %>
+            </div>
+            <div class="col-md-5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
