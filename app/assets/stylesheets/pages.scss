@@ -1,3 +1,14 @@
 // Place all the styles related to the Pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#background {
+  background-image: url(image_path('tasks.jpg'));
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.no-color {
+  background-color: transparent;
+}
