@@ -9,8 +9,8 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
-    <div class="container">
+    <div id="<%= content_for :background_id %>">
+      <%= render 'shared/navbar' %>
       <br>
       <%= render 'shared/alert_messages' %>
       <%= yield %>
