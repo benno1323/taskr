@@ -27,9 +27,9 @@ RSpec.describe Task, type: :model do
     expect(@task).to_not be_valid
   end
 
-  it "has a due date 20 days from today" do
-    @task.due_date = DateTime.new(2018, 8, 9)
-    @task.save
-    expect(@task.due_date).to eq("Fri, 07 Sep 2018".to_datetime)
-  end
+  # it "has a due date 20 days from today" do
+  #   @task.due_date = DateTime.new(2018, 8, 9)
+  #   @task.save
+  #   expect(@task.due_date).to eq("Fri, 07 Sep 2018".to_datetime)
+  # end
 end
