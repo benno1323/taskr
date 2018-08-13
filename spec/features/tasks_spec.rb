@@ -28,7 +28,7 @@ RSpec.feature "Tasks", type: :feature do
     expect(page).to have_content("Priority")
     expect(page).to have_content("Due Date")
     expect(page).to have_content(@task.subject)
-    expect(page).to have_content(@task.description)
+    expect(page).to have_content(@task.description.truncate(20))
     expect(page).to have_content(@task.priority)
     expect(page).to have_content("2018-09-07")
   end
@@ -37,11 +37,17 @@ RSpec.feature "Tasks", type: :feature do
     visit root_path
     log_in(@user)
     create_task(@task)
+    expect(page).to have_content(@task.subject)
+  end
 
-    within "h1" do
-      expect(page).to have_content(@task.subject)
-    end
-
+  scenario "PATCH #update" do
+    visit root_path
+    log_in(@user)
+    task = create(:task)
+    visit edit_task_path(task)
+    expect(page).to have_content("Edit Task")
+    update_task
+    expect(page).to have_content("Updated subject")
   end
 
   private
@@ -54,10 +60,15 @@ RSpec.feature "Tasks", type: :feature do
   end
 
   def create_task(task)
-    click_link("New")
+    click_link("Add Task")
     fill_in("Subject", with: task.subject)
     fill_in("Description", with: task.description)
     select(task.priority, from: "Priority")
     click_button("Create")
+  end
+
+  def update_task
+    fill_in("Subject", with: "Updated subject")
+    click_button("Update Task")
   end
 end
