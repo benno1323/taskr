@@ -50,6 +50,19 @@ RSpec.feature "Tasks", type: :feature do
     expect(page).to have_content("Updated subject")
   end
 
+  scenario "DELETE #destroy", js: true do
+    visit root_path
+    log_in(@user)
+    create_task(@task)
+
+    expect {
+      accept_alert do
+        click_link("Delete")
+      end
+      sleep 1
+    }.to change(Task, :count).by(-1)
+  end
+
   private
 
   def log_in(resource)

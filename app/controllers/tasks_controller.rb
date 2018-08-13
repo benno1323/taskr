@@ -27,6 +27,11 @@ class TasksController < ApplicationController
     update_task or render :edit
   end
 
+  def destroy
+    load_task
+    delete_task
+  end
+
   private
 
   def task_params
@@ -59,5 +64,9 @@ class TasksController < ApplicationController
 
   def update_task
     redirect_to @task, notice: 'Task updated successfully!' if @task.update(task_params)
+  end
+
+  def delete_task
+    redirect_to tasks_path, notice: 'Task was successfully destroyed!' if @task.destroy
   end
 end
