@@ -3,6 +3,8 @@ class TasksController < ApplicationController
 
   def index
     load_tasks
+    load_open_tasks
+    load_closed_tasks
   end
 
   def show
@@ -43,7 +45,15 @@ class TasksController < ApplicationController
   end
 
   def load_tasks
-    @tasks = task_scope.to_a
+    @tasks = task_scope.where(status: "New").to_a
+  end
+
+  def load_open_tasks
+    @open_tasks = task_scope.where(status: "Work in Progress").to_a
+  end
+
+  def load_closed_tasks
+    @closed_tasks = task_scope.where(status: "Closed").to_a
   end
 
   def new_task
