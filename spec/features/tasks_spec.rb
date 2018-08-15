@@ -77,6 +77,7 @@ RSpec.feature "Tasks", type: :feature do
     fill_in("Subject", with: task.subject)
     fill_in("Description", with: task.description)
     select(task.priority, from: "Priority")
+    select(task.status, from: "Status")
     click_button("Create")
   end
 
