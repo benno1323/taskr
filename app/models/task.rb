@@ -1,7 +1,10 @@
 class Task < ApplicationRecord
-  validates :subject, :description, :priority, presence: true
-  before_validation :setup_due_date, :set_priority_as_text
+  validates :subject, :description, :priority, :status, presence: true
+  before_validation :setup_due_date
   belongs_to :user
+
+  PRIORITY = ["High", "Medium", "Low"]
+  STATUS = ["New", "Work in Progress", "Closed"]
 
   def setup_due_date
     t = DateTime.now
@@ -15,17 +18,6 @@ class Task < ApplicationRecord
         end
       end
       t = t + 1
-    end
-  end
-
-  def set_priority_as_text
-    case self.priority
-    when "1"
-      self.priority = "High"
-    when "2"
-      self.priority = "Medium"
-    when "3"
-      self.priority = "Low"
     end
   end
 end
