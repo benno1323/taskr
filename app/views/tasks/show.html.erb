@@ -8,12 +8,16 @@
                 <%= @task.user.email %>
             </h5>
             <div class="col-md-5"></div>
-            <div class="col-md-3">
-              Due date: <%= @task.due_date %>
-            </div>
-            <div class="col-md-1">
-              <span class = "badge badge-pill badge-primary">
+            <div class="col-md-2">
+              <span class = "<%= 'badge badge-pill badge-danger btn-block' if @task.priority == 'High' %>">
+              <span class = "<%= 'badge badge-pill badge-warning btn-block' if @task.priority == 'Medium' %>">
+              <span class = "<%= 'badge badge-pill badge-success btn-block' if @task.priority == 'Low' %>">
                 <%= @task.priority %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span class = "badge badge-pill badge-info btn-block">
+                <%= @task.status %>
               </span>
             </div>
           </div>
@@ -30,6 +34,9 @@
               <%= link_to 'Back', tasks_path %>
             </div>
             <div class="col-md-5"></div>
+            <div class="col-md-4 text-right">
+              Due date: <%= @task.due_date %>
+            </div>
           </div>
         </div>
       </div>
