@@ -11,11 +11,9 @@ class Task < ApplicationRecord
     count = 0
 
     while (count <= 20) do
-      if !t.saturday?
-        if !t.sunday?
-          self.due_date = t
-          count = count + 1
-        end
+      if !t.saturday? && !t.sunday?
+        self.due_date = t
+        count += 1
       end
       t = t + 1
     end
